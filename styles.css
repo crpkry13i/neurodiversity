@@ -1,0 +1,19 @@
+body {
+  background-color: #9ccaf7;
+}
+h1#business_name {
+  text-align: center;
+}
+footer#index_footer {
+  text-align: center;
+}
+h1#contact_heading {
+  text-align: center;
+}
+div#contact_form {
+  text-align: center;
+} 
+footer#contact_footer {
+  text-align: center;
+}
+
