@@ -7,15 +7,12 @@ footer#index_footer {
 footer#contact_footer {
   text-align: center;
 }
-
 section p {
   transition: ease-in 0.5s;
 }
-
 section h2:hover {
   font-weight: bold;
 }
-
 #firstimg {
   transform: rotate(5deg);
 }
@@ -25,15 +22,19 @@ section h2:hover {
 #thirdimg {
   transform: rotate(0deg);
 }
-
 main.container {
   margin-right: 10%
 }
-
 #secondsection {
   margin-top: 35px
 }
-
 #thirdsection {
   margin-top: 45px
+}
+#bottomtext {
+  margin-top: 50px;
+  text-align: center;
+}
+#cat {
+  margin-left: 39.5%;
 }
