@@ -8,3 +8,32 @@ footer#contact_footer {
   text-align: center;
 }
 
+section p {
+  transition: ease-in 0.5s;
+}
+
+section h2:hover {
+  font-weight: bold;
+}
+
+#firstimg {
+  transform: rotate(5deg);
+}
+#secondimg {
+  transform: rotate(-5deg);
+}
+#thirdimg {
+  transform: rotate(0deg);
+}
+
+main.container {
+  margin-right: 10%
+}
+
+#secondsection {
+  margin-top: 35px
+}
+
+#thirdsection {
+  margin-top: 45px
+}
