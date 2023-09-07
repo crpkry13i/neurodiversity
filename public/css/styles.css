@@ -10,9 +10,9 @@ footer#contact_footer {
 section p {
   transition: ease-in 0.5s;
 }
-section h2:hover {
+/* section h2:hover {
   font-weight: bold;
-}
+} */
 #firstimg {
   transform: rotate(5deg);
 }
