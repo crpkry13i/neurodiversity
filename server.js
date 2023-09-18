@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const path = require('path');
+const PORT = process.env.PORT || 3030;
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: true }));
@@ -30,6 +31,6 @@ app.get('*', (req, res) => {
   res.send('You\'ve wondered off too far. Let\'s go back, shall we?')
 })
 
-app.listen(3000, () => {
-  console.log('Serving on port 3000')
-})
+app.listen(PORT, () => {
+  console.log(`Serving on port ${PORT}`)
+});
