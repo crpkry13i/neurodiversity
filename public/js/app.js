@@ -38,3 +38,10 @@ button.addEventListener('click', addRandomCatPhoto);
 //     console.log("ERROR!!!", e);
 //   }
 // }
+
+const contactForm = document.querySelector('#contact-form');
+
+contactForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  console.log('submit clicked')
+})
