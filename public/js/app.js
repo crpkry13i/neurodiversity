@@ -39,9 +39,18 @@ button.addEventListener('click', addRandomCatPhoto);
 //   }
 // }
 
-const contactForm = document.querySelector('#contact-form');
-
-contactForm.addEventListener('submit', (e) => {
+const contactForm = document.getElementById('contact-form');
+const contactFormEvent = contactForm.addEventListener("submit", (e) => {
   e.preventDefault();
-  console.log('submit clicked')
+  let mail = new FormData(contactForm);
+  sendMail(mail);
 })
+
+const sendMail = (mail) => {
+  fetch("/send", {
+    method: "post",
+    body: mail,
+  }).then((res) => {
+    return res.json();
+  })
+}
