@@ -32,6 +32,6 @@
   },
   "runArgs": [
     "--env-file",
-    "/config/process.env"
+    "/variables.env"
   ]
 }

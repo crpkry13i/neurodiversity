@@ -1,33 +1,15 @@
 const express = require('express');
 const nodemailer = require("nodemailer");
-const multiparty = require("multiparty");
 const app = express();
 const path = require('path');
-const PORT = process.env.PORT || 8888;
+const PORT = process.env.PORT || 3030;
 
 require("dotenv").config();
 
+// Middleware
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-
-
-const transporter = nodemailer.createTransport({
-  host: "smtp.live.com",
-  port: 587,
-  auth: {
-    user: process.env.EMAIL,
-    pass: process.env.PASS,
-  },
-});
-
-transporter.verify(function (error, success) {
-  if (error) {
-    console.log(error);
-  } else {
-    console.log("Server is ready to take our messages")
-  }
-});
 
 app.get('/', (req, res) => {
   // res.send('Hello from Rylei\'s Sanctuary')
@@ -40,28 +22,32 @@ app.get('/contact', (req, res) => {
 })
 
 app.post('/send', (req, res) => {
-  let form = new multiparty.Form();
-  let data = {};
-  form.parse(req, function (err, fields) {
-    console.log(fields);
-    Object.keys(fields).forEach(function (property) {
-      data[property] = fields[property].toString();
-    });
-    const mail = {
-      from: data.name,
-      to: process.env.EMAIL,
-      subject: data.subject,
-      text: `${data.name} <${data.email}> \n${data.message}`,
-    };
-    transporter.sendMail(mail, (err, data) => {
-      if (err) {
-        console.log(err);
-        res.status(500).send("Something went wrong.");
-      } else {
-        res.status(200).send("Email sucessfully sent to recipient!")
-      }
-    });
-  });
+  console.log(req.body);
+
+  const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: process.env.EMAIL,
+      pass: process.env.PASS
+    }
+  })
+
+  const mailOptions = {
+    from: req.body.email,
+    to: req.body.EMAIL,
+    subject: `Message from ${req.body.email}: ${req.body.subject}`,
+    text: req.body.message
+  }
+
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.log(error);
+      res.send('error');
+    } else {
+      console.log('Email sent: ' + info.response);
+      res.send('success');
+    }
+  })
 });
 
 app.get('/misc', (req, res) => {
