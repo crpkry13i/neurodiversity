@@ -1,10 +1,7 @@
 body {
   background-color: #9ccaf7;
 }
-footer#index_footer {
-  text-align: center;
-}
-footer#contact_footer {
+footer {
   text-align: center;
 }
 section p {
