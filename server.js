@@ -28,7 +28,7 @@ app.get('/misc', (req, res) => {
 })
 
 app.get('*', (req, res) => {
-  res.send('You\'ve wondered off too far. Let\'s go back, shall we?')
+  res.send('You\'ve wondered off too far. Let\'s go back, shall we?');
 })
 
 app.listen(PORT, () => {
