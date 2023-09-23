@@ -74,7 +74,7 @@ app.post('/send', (req, res) => {
       res.status(200).send(200)
     }
   })
-  res.send(`Message sent! Let's head back!`)
+  res.send(`Message sent! Let's head <a href="/contact.html">back</a>!`)
 
 })
 
@@ -83,7 +83,7 @@ app.get('/misc', (req, res) => {
 })
 
 app.get('*', (req, res) => {
-  res.send('You\'ve wondered off too far. Let\'s go back, shall we?')
+  res.send(`You've wondered off too far. Let's go <a href="/">back</a>, shall we?`)
 })
 
 app.listen(PORT, () => {
