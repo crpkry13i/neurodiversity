@@ -10,9 +10,6 @@ require("dotenv").config();
 
 // Middleware
 app.use(express.static(path.join(__dirname, 'public')));
-app.route("/contact").get(function (req, res) {
-  res.sendFile(process.cwd() + "/public/contact.html");
-});
 // app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
@@ -49,9 +46,9 @@ app.get('/', (req, res) => {
 })
 
 // Contact Form
-// app.get('/contact', (req, res) => {
-//   res.render('contact');
-// })
+app.route("/contact").get(function (req, res) {
+  res.sendFile(process.cwd() + "/public/contact.html");
+});
 
 app.post('/send', (req, res) => {
   const output = `
