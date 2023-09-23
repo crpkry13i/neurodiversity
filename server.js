@@ -4,7 +4,7 @@ const nodemailer = require("nodemailer");
 const { google } = require("googleapis");
 const app = express();
 const path = require('path');
-const PORT = process.env.PORT || 3030;
+const PORT = process.env.PORT || 5000;
 
 require("dotenv").config();
 
@@ -61,7 +61,7 @@ app.post('/send', (req, res) => {
   })
   
   const mailOpts = {
-    from: req.body.name,
+    from: `${req.body.name} <${req.body.email}>`,
     to: process.env.EMAIL,
     subject: `New message from ${req.body.name}`,
     html: output

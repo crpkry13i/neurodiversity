@@ -28,14 +28,26 @@ section h2 {
 #firstimg {
   transform: rotate(5deg);
   border: #FFCC70 solid 10px;
+  transition: transform 0.7s ease-in-out;
+}
+#firstimg:hover {
+  transform: rotate(5deg) scale(1.1);
 }
 #secondimg {
   transform: rotate(-5deg);
   border: #FFCC70 solid 10px;
+  transition: transform 0.7s ease-in-out;
+}
+#secondimg:hover {
+  transform: rotate(-5deg) scale(1.1);
 }
 #thirdimg {
   transform: rotate(0deg);
   border: #FFCC70 solid 10px;
+  transition: transform 0.7s ease-in-out;
+}
+#thirdimg:hover {
+  transform: rotate(0deg) scale(1.1);
 }
 main.container {
   margin-right: 10%;
@@ -58,6 +70,6 @@ main.container {
   margin-top: 5px;
 }
 .nav-item:hover {
-  color: #8ECDDD;
+  color: #FFFADD;
   font-weight: bold;
 }
