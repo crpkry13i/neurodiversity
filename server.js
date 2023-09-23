@@ -1,5 +1,7 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 const nodemailer = require("nodemailer");
+const { google } = require("googleapis");
 const app = express();
 const path = require('path');
 const PORT = process.env.PORT || 3030;
@@ -8,47 +10,91 @@ require("dotenv").config();
 
 // Middleware
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.urlencoded({ extended: true }));
+app.route("/contact").get(function (req, res) {
+  res.sendFile(process.cwd() + "/public/contact.html");
+});
+// app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 
+const OAuth2 = google.auth.OAuth2;
+const oauth2Client = new OAuth2(
+  process.env.CLIENT_ID,
+  process.env.CLIENT_SECRET,
+  process.env.REDIRECT_URI
+)
+
+oauth2Client.setCredentials({
+  refresh_token:process.env.REFRESH_TOKEN
+})
+const accessToken = oauth2Client.getAccessToken();
+
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  host: 'smtp.gmail.com',
+  port: 587,
+  secure: false,
+  auth: {
+    type: 'OAuth2',
+    user: process.env.EMAIL,
+    clientId: process.env.CLIENT_ID,
+    accessToken,
+    clientSecret: process.env.CLIENT_SECRET,
+    refreshToken: process.env.REFRESH_TOKEN
+  }
+})
+
 app.get('/', (req, res) => {
-  // res.send('Hello from Rylei\'s Sanctuary')
   res.render('index');
 })
 
 // Contact Form
-app.get('/contact', (req, res) => {
-  res.render('contact');
-})
+// app.get('/contact', (req, res) => {
+//   res.render('contact');
+// })
 
 app.post('/send', (req, res) => {
-  console.log(req.body);
-
-  const transporter = nodemailer.createTransport({
-    service: 'gmail',
+  const output = `
+<p>You have a new contact request</p>
+<h3>Contact details</h3>
+<ul>
+<li>Name: ${req.body.name}</li>
+<li>Email: ${req.body.email}</li>
+<li>Subject: ${req.body.subject}</li>
+<li>Message: ${req.body.message}</li>
+</ul>`
+  
+  const smtpTrans = nodemailer.createTransport({
+    host: 'smtp.gmail.com',
+    port: 465,
+    secure: true,
     auth: {
+      type: "OAuth2",
       user: process.env.EMAIL,
-      pass: process.env.PASS
+      clientId: process.env.CLIENT_ID,
+      clientSecret: process.env.CLIENT_SECRET,
+      refreshToken: process.env.REFRESH_TOKEN,
+      accessToken: accessToken
     }
   })
-
-  const mailOptions = {
-    from: req.body.email,
-    to: req.body.EMAIL,
-    subject: `Message from ${req.body.email}: ${req.body.subject}`,
-    text: req.body.message
+  
+  const mailOpts = {
+    from: req.body.name,
+    to: process.env.EMAIL,
+    subject: `New message from ${req.body.name}`,
+    html: output
   }
-
-  transporter.sendMail(mailOptions, (error, info) => {
+  smtpTrans.sendMail(mailOpts, (error, res) => {
     if (error) {
       console.log(error);
-      res.send('error');
     } else {
-      console.log('Email sent: ' + info.response);
-      res.send('success');
+      console.log("Message sent: " + res.messageId);
+      res.status(200).send(200)
     }
   })
-});
+  res.send(`Message sent! Let's head back!`)
+
+})
 
 app.get('/misc', (req, res) => {
   res.render('misc');
@@ -60,4 +106,4 @@ app.get('*', (req, res) => {
 
 app.listen(PORT, () => {
   console.log(`Serving on port ${PORT}`)
-});
+})

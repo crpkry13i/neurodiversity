@@ -10,6 +10,7 @@
   <script src="/js/jquery-3.7.1.min.js"></script>
   <script src="/js/bootstrap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
+  <script src="sweetalert2.all.min.js"></script>
 </head>
 
 <body>
@@ -33,8 +34,8 @@
   </nav>
   <div class="container">
     <h1 class="display-2 text-center">Contact Us!</h1>
-    <form action="/send" method="post" id="contact-form">
-      <div class="container">
+    <form class="col-12" action="send" method="post" id="contact-form">
+      <div class="container col-6">
         <div class="form-group md-6">
           <label for="name">Name</label>
           <input type="text" class="form-control" name="name" id="name" placeholder="name" required>

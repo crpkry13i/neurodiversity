@@ -17,6 +17,48 @@ const addRandomCatPhoto = async () => {
 
 button.addEventListener('click', addRandomCatPhoto);
 
+// Contact Form
+const contactForm = document.getElementById('contact-form');
+const formEvent = contactForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  let name = document.getElementById('name');
+  let email = document.getElementById('email');
+  let subject = document.getElementById('subject');
+  let message = document.getElementById('message');
+  sendEmail(name, email, subject, message)
+})
+
+function sendEmail(name, email, subject, message) {
+  const options = {
+    method: "POST",
+    headers: {
+    Accept: "application/json",
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({
+    name: name,
+    email: email,
+    subject:subject,
+    message: message
+  })
+  };
+return fetch("/contact", options)
+  .then(res =>{
+    if(res.status === 200){
+      Swal.fire({
+      icon: 'success',
+      title: 'Your message has been sent Successfully!',
+      })
+      form.reset()
+    }else{
+      Swal.fire({
+      icon: 'error',
+      title: 'Error, please try agian!',
+      })
+      }
+    })
+}
+
 // fetch("https://api.thecatapi.com/v1/images/search?")
 // .then(res  => {
 //   console.log("RESOLVED!", res);
@@ -38,38 +80,3 @@ button.addEventListener('click', addRandomCatPhoto);
 //     console.log("ERROR!!!", e);
 //   }
 // }
-
-const contactForm = document.getElementById('contact-form');
-let name = document.getElementById('name');
-let email = document.getElementById('email');
-let subject = document.getElementById('subject');
-let message = document.getElementById('message');
-
-contactForm.addEventListener("submit", (e) => {
-  e.preventDefault();
-
-  let formData = {
-    name: name.value,
-    email: email.value,
-    subject: subject.value,
-    message: message.value
-  }
-
-  let xhr = new XMLHttpRequest();
-  xhr.open('POST', '/send');
-  xhr.setRequestHeader('content-type', 'application/json');
-  xhr.onload = function () {
-    console.log(xhr.responseText);
-    if (xhr.responseText == 'success') {
-      alert('Email sent!');
-      name.value = '';
-      email.value = '';
-      subject.value = '';
-      message.value = '';
-    } else {
-      alert('Something went wrong!');
-    }
-  }
-
-  xhr.send(JSON.stringify(formData))
-})
