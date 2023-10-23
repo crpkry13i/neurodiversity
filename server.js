@@ -63,7 +63,7 @@ app.post('/send', (req, res) => {
 <li>Message: ${req.body.message}</li>
 </ul>`
   
-  const smtpTrans = nodemailer.createTransport({
+/* const smtpTrans = nodemailer.createTransport({
     host: 'smtp.gmail.com',
     port: 465,
     secure: true,
@@ -93,7 +93,7 @@ app.post('/send', (req, res) => {
   })
   res.send(`Message sent! Let's head <a href="/contact.html">back</a>!`)
 
-})
+}) */
 
 app.get('/misc', (req, res) => {
   res.render('misc');
