@@ -63,37 +63,37 @@ app.post('/send', (req, res) => {
 <li>Message: ${req.body.message}</li>
 </ul>`
   
-/* const smtpTrans = nodemailer.createTransport({
-    host: 'smtp.gmail.com',
-    port: 465,
-    secure: true,
-    auth: {
-      type: "OAuth2",
-      user: process.env.EMAIL,
-      clientId: process.env.CLIENT_ID,
-      clientSecret: process.env.CLIENT_SECRET,
-      refreshToken: process.env.REFRESH_TOKEN,
-      accessToken: accessToken
+  /* const smtpTrans = nodemailer.createTransport({
+      host: 'smtp.gmail.com',
+      port: 465,
+      secure: true,
+      auth: {
+        type: "OAuth2",
+        user: process.env.EMAIL,
+        clientId: process.env.CLIENT_ID,
+        clientSecret: process.env.CLIENT_SECRET,
+        refreshToken: process.env.REFRESH_TOKEN,
+        accessToken: accessToken
+      }
+    })
+    
+    const mailOpts = {
+      from: `${req.body.name} <${req.body.email}>`,
+      to: process.env.EMAIL,
+      subject: `New message from ${req.body.name}`,
+      html: output
     }
-  })
-  
-  const mailOpts = {
-    from: `${req.body.name} <${req.body.email}>`,
-    to: process.env.EMAIL,
-    subject: `New message from ${req.body.name}`,
-    html: output
-  }
-  smtpTrans.sendMail(mailOpts, (error, res) => {
-    if (error) {
-      console.log(error);
-    } else {
-      console.log("Message sent: " + res.messageId);
-      res.status(200).send(200)
-    }
-  })
-  res.send(`Message sent! Let's head <a href="/contact.html">back</a>!`)
+    smtpTrans.sendMail(mailOpts, (error, res) => {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log("Message sent: " + res.messageId);
+        res.status(200).send(200)
+      }
+    })
+    res.send(`Message sent! Let's head <a href="/contact.html">back</a>!`) */
 
-}) */
+}); 
 
 app.get('/misc', (req, res) => {
   res.render('misc');
