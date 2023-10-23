@@ -15,7 +15,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 
 // Google OAuth2 
-const OAuth2 = google.auth.OAuth2;
+/* const OAuth2 = google.auth.OAuth2;
 const oauth2Client = new OAuth2(
   process.env.CLIENT_ID,
   process.env.CLIENT_SECRET,
@@ -24,7 +24,7 @@ const oauth2Client = new OAuth2(
 oauth2Client.setCredentials({
   refresh_token:process.env.REFRESH_TOKEN
 })
-const accessToken = oauth2Client.getAccessToken();
+const accessToken = oauth2Client.getAccessToken(); */
 
 // Routes
 app.get('/', (req, res) => {
